@@ -1,0 +1,15 @@
+Function computerPlay 
+    return either Rock Paper or Scissors
+    Math.random
+    assign RPS to numbers
+
+Function playRound
+    take in 2 parameters (playerSelection, computerSelection)
+    prompt user for input, case insensitive
+    computerSelection = computerPlay
+    if...else if to determine result
+    return a result to user 
+
+Function game
+    loop 5 rounds
+    keep track of score and report winner at the end
