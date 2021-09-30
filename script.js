@@ -1,4 +1,5 @@
-function computerPlay() {
+// Computer's random choice of RPS
+function computerSelection() {
     let computerChoice;
     let computer = Math.floor((Math.random()*3) + 1);
     if (computer == 1) {
@@ -11,47 +12,92 @@ function computerPlay() {
     return computerChoice;
 }
 
-function playRound(playerSelection, computerSelection) {
-    let result;
-    playerSelection = prompt("What is your choice? ");
-    playerSelection = playerSelection.toLowerCase();
-    computerSelection = computerPlay();
-    if (playerSelection === computerSelection) {
-        result = "You are tied!";
-    } else if (playerSelection === "rock" && computerSelection === "paper") {
-        result = "You lose! Paper beats rock.";
-    } else if (playerSelection === "paper" && computerSelection === "scissors") {
-        result = "You lose! Scissors beats paper.";
-    } else if (playerSelection === "scissors" && computerSelection === "rock") {
-        result = "You lose! Rock beats scissors.";
-    } else if (playerSelection === "paper" && computerSelection === "rock") {
-        result = "You win! Paper beats rock.";
-    } else if (playerSelection === "scissors" && computerSelection === "paper") {
-        result = "You win! Scissors beats paper.";
-    } else if (playerSelection === "rock" && computerSelection === "scissors") {
-        result = "You win! Rock beats scissors.";
-    }
-    return result;
-}
+// Variables to keep track of scores
+let playerWins = 0;
+let computerWins = 0;
 
-function game() {
-    let playerWins = 0;
-    let computerWins = 0;
-    for (let i = 0; i < 5; i++) {
-        let result = playRound();
-        if (result.includes("You win")) {
-            console.log("You win!");
-            playerWins++;
-        } else if (result.includes("You lose")) {
-            console.log("You lose!");
+// DOM 
+const rock = document.querySelector('#rock');
+const paper = document.querySelector('#paper');
+const scissors = document.querySelector('#scissors');
+const result = document.querySelector('#result');
+const playerScore = document.querySelector('#player-wins');
+const computerScore = document.querySelector('#computer-wins');
+const reloadBtn = document.querySelector('#reload');
+
+// Single round of RPS
+function playRound(playerSelection, computerSelection) {
+    if (playerSelection === computerSelection) {
+        result.textContent = 'You are tied!';
+    }
+    else if (playerSelection === 'rock') {
+        if (computerSelection === 'paper') {
             computerWins++;
+            result.textContent = 'You lose!';
+            playerScore.textContent = playerWins;
+            computerScore.textContent = computerWins;
+        } else if (computerSelection === 'scissors') {
+            playerWins++;
+            result.textcontent = 'You win!';
+            playerScore.textContent = playerWins;
+            computerScore.textContent = computerWins;
         }
     }
-    if (playerWins > computerWins) {
-        console.log("Player wins!");
-        return ("Player wins!");
-    } else if (computerWins > playerWins) {
-        console.log("Computer wins!");
-        return ("Computer wins!");
+    else if (playerSelection === 'paper') {
+        if (computerSelection === 'scissors') {
+            computerWins++;
+            result.textContent = 'You lose!';
+            playerScore.textContent = playerWins;
+            computerScore.textContent = computerWins;
+        } else if (computerSelection === 'rock') {
+            playerWins++;
+            result.textcontent = 'You win!';
+            playerScore.textContent = playerWins;
+            computerScore.textContent = computerWins;
+        }
+    }
+    else if (playerSelection === 'scissors') {
+        if (computerSelection === 'rock') {
+            computerWins++;
+            result.textContent = 'You lose!';
+            playerScore.textContent = playerWins;
+            computerScore.textContent = computerWins;
+        } else if (computerSelection === 'paper') {
+            playerWins++;
+            result.textcontent = 'You win!';
+            playerScore.textContent = playerWins;
+            computerScore.textContent = computerWins;
+        }
     }
 }
+
+// 5 games of RPS
+function game(playerSelection) {
+    playRound(playerSelection, computerSelection());
+
+    if (playerWins > 5 && computerWins < 5) {
+        location.reload();
+    } else if (playerWins < 5 && computerWins > 5) {
+        location.reload();
+    }
+    else if (playerWins == 5) {
+        result.textContent = 'You won 5 games of RPS!';
+    } else if (computerWins == 5) {
+        result.textContent = 'You lost 5 games of RPS!';
+    }
+}
+
+// Click event listener of buttons
+rock.addEventListener('click', () => {
+    game('rock');
+});
+paper.addEventListener('click', () => {
+    game('paper');
+});
+scissors.addEventListener('click', () => {
+    game('scissors');
+});
+
+reloadBtn.addEventListener('click', () => {
+    location.reload();
+});
