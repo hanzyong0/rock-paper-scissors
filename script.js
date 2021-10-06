@@ -38,7 +38,7 @@ function playRound(playerSelection, computerSelection) {
             computerScore.textContent = computerWins;
         } else if (computerSelection === 'scissors') {
             playerWins++;
-            result.textcontent = 'You win!';
+            result.textContent = 'You win!';
             playerScore.textContent = playerWins;
             computerScore.textContent = computerWins;
         }
@@ -51,7 +51,7 @@ function playRound(playerSelection, computerSelection) {
             computerScore.textContent = computerWins;
         } else if (computerSelection === 'rock') {
             playerWins++;
-            result.textcontent = 'You win!';
+            result.textContent = 'You win!';
             playerScore.textContent = playerWins;
             computerScore.textContent = computerWins;
         }
@@ -64,7 +64,7 @@ function playRound(playerSelection, computerSelection) {
             computerScore.textContent = computerWins;
         } else if (computerSelection === 'paper') {
             playerWins++;
-            result.textcontent = 'You win!';
+            result.textContent = 'You win!';
             playerScore.textContent = playerWins;
             computerScore.textContent = computerWins;
         }
